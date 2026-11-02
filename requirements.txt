@@ -1,0 +1,7 @@
+# JAR has no required third-party runtime dependencies.
+# The core engine, CLI and tests run on the Python standard library alone.
+#
+# Optional extras:
+#   pip install ".[gui]"    desktop app + tray icon
+#   pip install ".[trash]"  send deleted files to the OS trash
+#   pip install ".[all]"    everything above

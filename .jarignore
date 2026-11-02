@@ -1,0 +1,25 @@
+# Patterns JAR itself should ignore when pointed at this repository.
+
+.git/
+.github/
+.venv/
+.venv-*/
+__pycache__/
+*.py[cod]
+build/
+dist/
+release/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+node_modules/
+
+# Not user documents: keep the project tree stable.
+*.db
+*.db-*
+*.log
+*.lock
+*.jar-journal

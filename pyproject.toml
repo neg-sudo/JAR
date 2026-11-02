@@ -1,0 +1,67 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jar-organizer"
+version = "2.0.0"
+description = "JAR - Just Automated Routing: a safe, scriptable file organizer with a CLI and desktop app."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+authors = [{ name = "neg-sudo" }]
+keywords = ["files", "organizer", "automation", "cli", "desktop", "productivity", "duplicates"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Environment :: X11 Applications",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Desktop Environment :: File Managers",
+    "Topic :: Utilities",
+]
+dependencies = []
+
+[project.optional-dependencies]
+gui = [
+    "customtkinter>=5.2.0",
+    "pillow>=9.0.0",
+    "pystray>=0.19.5",
+]
+trash = ["Send2Trash>=1.8.0"]
+dev = [
+    "build>=1.0.0",
+    "pyinstaller>=6.0.0",
+    "pytest>=8.0.0",
+]
+all = [
+    "customtkinter>=5.2.0",
+    "pillow>=9.0.0",
+    "pystray>=0.19.5",
+    "Send2Trash>=1.8.0",
+]
+
+[project.scripts]
+jar = "jar.cli:main"
+
+[project.gui-scripts]
+jar-desktop = "jar.gui.launch:main"
+
+[project.urls]
+Homepage = "https://github.com/neg-sudo/JAR"
+Repository = "https://github.com/neg-sudo/JAR"
+Issues = "https://github.com/neg-sudo/JAR/issues"
+Changelog = "https://github.com/neg-sudo/JAR/blob/main/CHANGELOG.md"
+
+[tool.setuptools.packages.find]
+include = ["jar*"]
+
+[tool.setuptools.package-data]
+jar = ["assets/*"]
