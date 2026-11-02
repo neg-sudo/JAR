@@ -17,7 +17,9 @@ class SandboxTestCase(unittest.TestCase):
 
     def setUp(self) -> None:
         self._tmp = tempfile.TemporaryDirectory(prefix="jar-tests-")
-        self.base = Path(self._tmp.name)
+        # Resolve once so macOS's /var -> /private/var symlink does not make
+        # path comparisons inconsistent with Config's resolved paths.
+        self.base = Path(self._tmp.name).resolve()
         self.config_dir = self.base / "config"
         self.data_dir = self.base / "data"
         self.inbox = self.base / "inbox"
