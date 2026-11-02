@@ -112,6 +112,9 @@ jobs:
           path: release
           merge-multiple: true
 
+      - name: Generate combined checksums
+        run: python scripts/checksums.py release
+
       - name: List release files
         run: ls -lh release
 
