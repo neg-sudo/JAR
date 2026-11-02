@@ -190,7 +190,7 @@ and covered by the test suite where practical.
 136. **Structured rotating logs**.
 137. **Missing-source detection** between plan and execution.
 138. **Per-file error isolation** — one failure does not abort the batch.
-139. **197-test standard-library suite** covering utilities, safety, config,
+139. **198-test standard-library suite** covering utilities, safety, config,
      rules, scanning, duplicates, journal, organizer, reports, trash, watcher
      and CLI.
 140. **Single-version source of truth** shared by CLI, GUI, packaging and tests.

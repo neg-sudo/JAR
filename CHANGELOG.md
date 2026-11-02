@@ -37,7 +37,7 @@ desktop app, release pipeline and test suite were added.
   Windows reserved names, lock file and stale-lock recovery.
 - **Hooks and notifications**: before/after/error hooks with timeouts, and
   native desktop notifications.
-- **197-test standard-library suite**.
+- **198-test standard-library suite**.
 - **Packaging**: PyInstaller specs, per-platform build scripts, release
   packager with checksums, cross-platform smoke test, CI and release workflows.
 - **Documentation**: README, feature list, configuration reference,

@@ -41,7 +41,7 @@ jobs:
             platform: macos
             arch: x86_64
             binary: dist/jar
-          - os: macos-15
+          - os: macos-14
             label: macos-arm64
             platform: macos
             arch: arm64
