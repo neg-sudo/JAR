@@ -53,6 +53,20 @@ class ScannerTests(SandboxTestCase):
         }
         self.assertEqual(names, {"keep.txt"})
 
+    def test_jarignore_directory_pattern_only_matches_relative_paths(self):
+        # A parent folder called "private" must not make every file ignored;
+        # this is a regression test for macOS, where /var resolves to
+        # /private/var and the ignore pattern used to match the absolute path.
+        nested_inbox = self.base / "private" / "inbox"
+        self.write(".jarignore", "private/\n", nested_inbox)
+        self.write("keep.txt", folder=nested_inbox)
+        self.write("secret.txt", folder=nested_inbox / "private")
+        names = {
+            candidate.path.name
+            for candidate in scan_candidates([nested_inbox], self.config, recursive=True)
+        }
+        self.assertEqual(names, {"keep.txt"})
+
     def test_category_filter(self):
         self.write("a.txt")
         self.write("b.jpg")

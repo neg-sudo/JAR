@@ -55,3 +55,20 @@ def configure_logging(config: Config, *, verbose: bool = False, quiet: bool = Fa
         logger.addHandler(console)
 
     return logger
+
+
+def shutdown_logging() -> None:
+    """Close JAR's logging handlers.
+
+    Windows keeps log files locked while a handler is open, which prevents
+    temporary directories (and uninstalls) from removing them.  Call this at
+    process shutdown and in test teardown.
+    """
+    logger = logging.getLogger("jar")
+    for handler in list(logger.handlers):
+        if getattr(handler, "_jar_handler", False):
+            logger.removeHandler(handler)
+            try:
+                handler.close()
+            except Exception:  # noqa: BLE001
+                pass

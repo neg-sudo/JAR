@@ -331,7 +331,7 @@ class RuleEngine:
             patterns.extend(self._ignore_file_patterns(root))
 
         full = str(path)
-        if self._match_patterns(path.as_posix(), name, full, patterns):
+        if self._match_patterns(name, name, full, patterns):
             return True
         for rel_text, _ in relative_candidates:
             if self._match_patterns(rel_text, name, full, patterns):
@@ -350,7 +350,7 @@ class RuleEngine:
                 continue
         name = path.name
         full = str(path)
-        if self._match_patterns(path.as_posix(), name, full, patterns):
+        if self._match_patterns(name, name, full, patterns):
             return True
         for root in roots or []:
             try:

@@ -8,6 +8,7 @@ import unittest
 from pathlib import Path
 
 from jar.config import Config
+from jar.logging_setup import shutdown_logging
 
 ENV_KEYS = ("JAR_CONFIG_DIR", "JAR_DATA_DIR", "JAR_CONFIG_FILE", "NO_COLOR")
 
@@ -42,6 +43,12 @@ class SandboxTestCase(unittest.TestCase):
         self.config = Config()
 
     def tearDown(self) -> None:
+        # Close rotating log handlers first: Windows cannot delete an open
+        # jar.log, which otherwise makes TemporaryDirectory cleanup fail.
+        shutdown_logging()
+        import gc
+
+        gc.collect()
         for key, value in self._old_env.items():
             if value is None:
                 os.environ.pop(key, None)

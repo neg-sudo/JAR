@@ -4,8 +4,6 @@ from __future__ import annotations
 
 import json
 import unittest
-from pathlib import Path
-
 from jar.config import CONFIG_VERSION, Config, default_config, resolve_paths
 from jar.errors import ConfigError
 
@@ -78,13 +76,16 @@ class ConfigFileTests(SandboxTestCase):
 
 class ProfileTests(SandboxTestCase):
     def test_profiles_merge_and_persist(self):
-        self.config.create_profile("media", {"dest_root": "/tmp/media", "conflict": "skip"})
+        profile_root = self.base / "media"
+        self.config.create_profile(
+            "media", {"dest_root": str(profile_root), "conflict": "skip"}
+        )
         self.config.save()
         profiles = Config(profile="media")
         self.assertEqual(profiles.profile, "media")
         self.assertEqual(profiles.get("conflict"), "skip")
         self.assertEqual(
-            profiles.destination_root, Path("/tmp/media").resolve(strict=False)
+            profiles.destination_root, profile_root.resolve(strict=False)
         )
         self.assertIn("media", profiles.profile_names())
 
