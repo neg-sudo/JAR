@@ -37,7 +37,6 @@ def launch(config: Config | None = None) -> None:
     app = JarApp(config)
     app.mainloop()
 
-
 class JarApp:
     def __init__(self, config: Config | None = None):
         self.config = config or Config()
@@ -65,6 +64,10 @@ class JarApp:
         self.root.bind("<Control-d>", lambda _event: self.find_duplicates())
         self.root.bind("<Control-z>", lambda _event: self.undo_last())
         self.root.protocol("WM_DELETE_WINDOW", self.on_close)
+
+    def mainloop(self) -> None:
+        """Run the Tk event loop (used by ``launch`` and the desktop entry)."""
+        self.root.mainloop()
 
     # ----------------------------------------------------------------- UI
     def _build_menu(self):

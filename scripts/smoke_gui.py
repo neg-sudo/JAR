@@ -29,7 +29,7 @@ def main() -> int:
 
         app = JarApp()
         app.root.after(750, app.root.destroy)
-        app.root.mainloop()
+        app.mainloop()
 
     print("ok   desktop app started and closed cleanly")
     return 0
