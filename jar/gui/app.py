@@ -56,8 +56,9 @@ class JarApp:
         self.root.title(f"{APP_NAME} {__version__} | {APP_TAGLINE}")
         self.root.geometry("980x720")
         self.root.minsize(820, 640)
-        self._build_menu()
         self._build_tabs()
+        # The Tools menu points at tab methods, so tabs must exist first.
+        self._build_menu()
         self._refresh_all()
         self.root.bind("<F5>", lambda _event: self._refresh_all())
         self.root.bind("<Control-o>", lambda _event: self.run_organize(bool(self.org_dry.get())))

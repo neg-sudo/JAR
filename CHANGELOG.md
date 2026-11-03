@@ -61,6 +61,8 @@ desktop app, release pipeline and test suite were added.
 - Files that disappear between planning and moving are reported as skipped
   instead of raising.
 - Restoring from quarantine never overwrites an existing file silently.
+- The desktop app no longer crashes at startup when the Tools menu is created
+  before its tabs.
 
 ### Compatibility
 

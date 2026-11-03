@@ -70,6 +70,10 @@ jobs:
       - name: Run tests
         run: python -m unittest discover -s tests -t .
 
+      - name: Smoke test desktop startup
+        if: runner.os == 'Linux'
+        run: xvfb-run -a python scripts/smoke_gui.py
+
       - name: Build CLI binary
         run: pyinstaller --clean --noconfirm packaging/jar-cli.spec
 
