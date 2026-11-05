@@ -63,6 +63,8 @@ desktop app, release pipeline and test suite were added.
 - Restoring from quarantine never overwrites an existing file silently.
 - The desktop app no longer crashes at startup when the Tools menu is created
   before its tabs.
+- Every desktop tab now places its body inside the tab, so the window shows
+  widgets instead of an empty pane.
 
 ### Compatibility
 

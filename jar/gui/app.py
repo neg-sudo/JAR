@@ -144,7 +144,7 @@ class JarApp:
 
     # Overview
     def _build_overview(self):
-        f = self._frame(self.tab_overview)
+        f = self._tab_frame(self.tab_overview)
         self._label(f, f"{APP_NAME} {__version__}", size=24).pack(anchor="w")
         self._label(f, APP_TAGLINE, size=12).pack(anchor="w")
         stats_f = self._frame(f)
@@ -167,7 +167,7 @@ class JarApp:
 
     # Organize
     def _build_organize(self):
-        f = self._frame(self.tab_organize)
+        f = self._tab_frame(self.tab_organize)
         self._label(f, "Folders to organize:").pack(anchor="w")
         self.org_paths = self._textbox(f, height=4)
         self.org_paths.pack(fill="x", padx=5)
@@ -198,7 +198,7 @@ class JarApp:
 
     # Watch
     def _build_watch(self):
-        f = self._frame(self.tab_watch)
+        f = self._tab_frame(self.tab_watch)
         self._label(f, "Watch Folders:").pack(anchor="w")
         self.watch_paths = self._textbox(f, height=4)
         self.watch_paths.pack(fill="x")
@@ -226,7 +226,7 @@ class JarApp:
 
     # Rules
     def _build_rules(self):
-        f = self._frame(self.tab_rules)
+        f = self._tab_frame(self.tab_rules)
         top = self._frame(f)
         self._label(top, "Custom Rules").pack(side="left")
         self._button(top, "Add Rule", self.add_rule).pack(side="right")
@@ -256,7 +256,7 @@ class JarApp:
 
     # Duplicates
     def _build_duplicates(self):
-        f = self._frame(self.tab_duplicates)
+        f = self._tab_frame(self.tab_duplicates)
         top = self._frame(f)
         self._button(top, "Scan", self.find_duplicates).pack(side="left")
         self._label(top, "Keep:").pack(side="left", padx=(20, 5))
@@ -277,7 +277,7 @@ class JarApp:
 
     # Quarantine
     def _build_quarantine_tab(self):
-        f = self._frame(self.tab_quarantine)
+        f = self._tab_frame(self.tab_quarantine)
         top = self._frame(f)
         self._button(top, "Refresh", self.load_quarantine).pack(side="left")
         self._button(top, "Restore Selected", self.restore_quarantine).pack(side="left", padx=5)
@@ -291,7 +291,7 @@ class JarApp:
 
     # History
     def _build_history(self):
-        f = self._frame(self.tab_history)
+        f = self._tab_frame(self.tab_history)
         top = self._frame(f)
         self._button(top, "Refresh", self.load_history).pack(side="left")
         self._button(top, "Undo Last Batch", self.undo_last).pack(side="left", padx=5)
@@ -307,7 +307,7 @@ class JarApp:
 
     # Stats
     def _build_stats(self):
-        f = self._frame(self.tab_stats)
+        f = self._tab_frame(self.tab_stats)
         top = self._frame(f)
         self._button(top, "Refresh Stats", self.load_stats).pack(side="left")
         self._button(top, "Export JSON", lambda: self.export_stats("json")).pack(side="left", padx=5)
@@ -320,7 +320,7 @@ class JarApp:
 
     # Settings
     def _build_settings(self):
-        f = self._frame(self.tab_settings)
+        f = self._tab_frame(self.tab_settings)
         self._label(f, "Core Settings", size=16).pack(anchor="w")
         grid = self._frame(f)
         self.s_mode = self._entry_l(grid, "Mode (global/local)")
@@ -357,7 +357,7 @@ class JarApp:
 
     # Doctor
     def _build_doctor(self):
-        f = self._frame(self.tab_doctor)
+        f = self._tab_frame(self.tab_doctor)
         top = self._frame(f)
         self._button(top, "Run Doctor", self.run_doctor).pack(side="left")
         self._button(top, "Open Log", self.open_log).pack(side="left", padx=5)
@@ -370,6 +370,12 @@ class JarApp:
     # Helpers
     def _frame(self, parent):
         return ctk.CTkFrame(parent) if CTK else tk.Frame(parent, bg="#2b2b2b")
+
+    def _tab_frame(self, parent):
+        """Create a tab body and actually place it inside the tab."""
+        frame = self._frame(parent)
+        frame.pack(fill="both", expand=True, padx=8, pady=8)
+        return frame
 
     def _label(self, parent, text, size=12):
         if CTK:

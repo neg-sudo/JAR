@@ -12,6 +12,7 @@ from __future__ import annotations
 import os
 import sys
 import tempfile
+import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -28,6 +29,44 @@ def main() -> int:
         from jar.gui.app import JarApp
 
         app = JarApp()
+        app.root.update_idletasks()
+        app.root.update()
+
+        tabs = {
+            "Overview": app.tab_overview,
+            "Organize": app.tab_organize,
+            "Watch": app.tab_watch,
+            "Rules": app.tab_rules,
+            "Duplicates": app.tab_duplicates,
+            "Quarantine": app.tab_quarantine,
+            "History": app.tab_history,
+            "Stats & Reports": app.tab_stats,
+            "Settings": app.tab_settings,
+            "Doctor": app.tab_doctor,
+        }
+        for name, tab in tabs.items():
+            if hasattr(app.notebook, "set"):
+                app.notebook.set(name)
+                # CTkTabview hides the previous tab via after(100, ...).
+                deadline = time.monotonic() + 0.2
+                while time.monotonic() < deadline:
+                    app.root.update()
+                    time.sleep(0.02)
+            else:
+                app.notebook.select(tab)
+            app.root.update_idletasks()
+            app.root.update()
+            visible = [
+                child
+                for child in tab.winfo_children()
+                if child.winfo_ismapped()
+                and child.winfo_width() > 20
+                and child.winfo_height() > 20
+            ]
+            if not visible:
+                raise SystemExit(f"tab {name!r} has no visible content")
+            print(f"ok   tab {name}")
+
         app.root.after(750, app.root.destroy)
         app.mainloop()
 
